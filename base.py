@@ -11,10 +11,10 @@ def polygon_coordinates(x,y,width,length): #Gives coordinates with input of star
     ]
 
 def draw(coordinates): #Create polygon with the coordinates from function polygon_coordinates
-    all_poly = []
+    #all_poly = []
     poly = Polygon(coordinates,closed =True,facecolor = "b",edgecolor="black",alpha=0.6)
-    all_poly.append(poly)
-    return(all_poly)
+    #all_poly.append(poly)
+    return(poly)
 
 def show_plot(poly,plot_width,plot_length): #Show/display the polygons
     fig, ax = plt.subplots()
@@ -24,7 +24,7 @@ def show_plot(poly,plot_width,plot_length): #Show/display the polygons
     ax.set_aspect("equal")
     plt.show()
 
-def cover_area(plot_wid, plot_len, front_spacing, left_spacing, right_spacing, back_spacing): #Calculate cover area details from givrn land length, width and spacings output a dict
+def cover_area(plot_wid, plot_len, front_spacing, left_spacing, right_spacing, back_spacing): #Calculate cover area details from givrn land length, width and spacings
     len_cover_area = plot_len - (front_spacing + back_spacing)
     wid_cover_area = plot_wid - (left_spacing + right_spacing)
     cover_area = len_cover_area * wid_cover_area
@@ -37,15 +37,15 @@ def cover_area(plot_wid, plot_len, front_spacing, left_spacing, right_spacing, b
     }
 
 def zone(x,y,cover_len,cover_wid): #Gives coord for 4 zones, inputs - cover start,length, width
-    buttom_left = (x,y)
-    top_right = (cover_wid,cover_len)
-    top_left = (x,cover_len)
-    buttom_right = (cover_wid,y)
-    AB_center = (cover_wid / 2,y)
-    DA_center = (cover_len / 2,x)
-    BC_center = (cover_wid,DA_center)
-    CD_center = (AB_center,cover_len)
-    center = (cover_wid/2,cover_len/2)
+    buttom_left = [x,y]
+    top_right = [cover_wid,cover_len]
+    top_left = [x,cover_len]
+    buttom_right = [cover_wid,y]
+    AB_center = [cover_wid / 2,y]
+    DA_center = [cover_len / 2,x]
+    BC_center = [cover_wid,DA_center]
+    CD_center = [AB_center,cover_len]
+    center = [cover_wid/2,cover_len/2]
 
     zone_coord = []
     for i in range(4):
@@ -63,6 +63,10 @@ def zone(x,y,cover_len,cover_wid): #Gives coord for 4 zones, inputs - cover star
             zone_coord.append(zone4_coord)
 
     return zone_coord
+
+
+
+
 
 #Inputs ---
 plot_length = 20
@@ -85,8 +89,10 @@ building_details =[
         ]
     ]
 
-for x,y,width,length in building_details:
-    cover_coor = polygon_coordinates(x,y,width,length)
-    
-print(cover_coor)
 
+zone_cod = zone(building_details[0][0],building_details[0][1],building_details[0][2],building_details[0][3])
+
+
+    
+a = draw(zone_cod[0])
+show_plot(a,plot_width,plot_length)
