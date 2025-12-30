@@ -36,6 +36,33 @@ def cover_area(plot_wid, plot_len, front_spacing, left_spacing, right_spacing, b
         "Cover area":cover_area
     }
 
+def zone(x,y,cover_len,cover_wid): #Gives coord for 4 zones, inputs - cover start,length, width
+    buttom_left = (x,y)
+    top_right = (cover_wid,cover_len)
+    top_left = (x,cover_len)
+    buttom_right = (cover_wid,y)
+    AB_center = (cover_wid / 2,y)
+    DA_center = (cover_len / 2,x)
+    BC_center = (cover_wid,DA_center)
+    CD_center = (AB_center,cover_len)
+    center = (cover_wid/2,cover_len/2)
+
+    zone_coord = []
+    for i in range(4):
+        if i == 0:
+            zone1_coord = [buttom_left,AB_center,center,DA_center]
+            zone_coord.append(zone1_coord)
+        elif i == 1:
+            zone2_coord = [AB_center,buttom_right,BC_center,center]
+            zone_coord.append(zone2_coord)
+        elif i == 2:
+            zone3_coord = [center,BC_center,top_right,CD_center]
+            zone_coord.append(zone3_coord)
+        elif i == 3:
+            zone4_coord = [CD_center,top_left,DA_center,center]
+            zone_coord.append(zone4_coord)
+
+    return zone_coord
 
 #Inputs ---
 plot_length = 20
