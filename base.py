@@ -24,7 +24,7 @@ def show_plot(poly,plot_width,plot_length): #Show/display the polygons
     ax.set_aspect("equal")
     plt.show()
 
-def cover_area(plot_wid, plot_len, front_spacing, left_spacing, right_spacing, back_spacing): #Calculate cover area details from givrn land length, width and spacings
+def cover_area(plot_wid, plot_len, front_spacing, left_spacing, right_spacing, back_spacing): #Calculate cover area details from givrn land length, width and spacings output a dict
     len_cover_area = plot_len - (front_spacing + back_spacing)
     wid_cover_area = plot_wid - (left_spacing + right_spacing)
     cover_area = len_cover_area * wid_cover_area
