@@ -103,5 +103,16 @@ for i in range(len(zone_cod)):
     poly = draw(zone_cod[i])
     all_polys.append(poly)
 
+#show_plot(all_polys, plot_width,plot_length)
+
+data = zone_storage(zone_cod)
+
+for i in data:
+    zones = data[str(i)]
+    print(i,f"Area = {zones["Area"]} Sq m")
+
+print(f"Plot area is {plot_length*plot_width} Sq m")
+print(f"Cover area is {round(cover_details["Cover area"],2)} Sq m")
+
 show_plot(all_polys, plot_width,plot_length)
 
