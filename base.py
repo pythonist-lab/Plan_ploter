@@ -62,6 +62,19 @@ def zone(x,y,cover_len,cover_wid): #Gives coord for 4 zones, inputs - cover star
 
     return zone_coord
 
+def zone_storage(zone_cod):
+    zone_data = {}
+    for i, coords in enumerate(zone_cod, start=1):
+        Length = round(abs((coords[0][1])-(coords[-1][1])),2)
+        Width = round(abs((coords[0][0])-(coords[1][0])),2)
+        zone_data[f"zone_{i}"] = {
+            "Coordinates": coords,
+            "Length": Length,
+            "Width": Width,
+            "Area": Length*Width
+        }
+    return zone_data
+
 #Inputs ---
 plot_length = 20
 plot_width = 10
