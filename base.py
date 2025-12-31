@@ -1,14 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
-
-
-def polygon_coordinates(x,y,width,length): #Gives coordinates with input of start points(x,y) and length, width
-    return [
-        [x,y],
-        [x + width,y],
-        [x + width, y+length],
-        [x,y+length]
-    ]
+from room_rules import minimum_room_sizes_india
 
 def draw(coordinates): #Create polygon with the coordinates from function polygon_coordinates
     #all_poly = []
@@ -16,17 +8,21 @@ def draw(coordinates): #Create polygon with the coordinates from function polygo
     #all_poly.append(poly)
     return(poly)
 
-def show_plot(poly,plot_width,plot_length): #Show/display the polygons
+def show_plot(polygons,plot_width,plot_length): #Show/display the polygons
     fig, ax = plt.subplots()
+
     ax.set_xlim(0,plot_width)
     ax.set_ylim(0,plot_length)
-    ax.add_patch(poly)
     ax.set_aspect("equal")
+
+    for poly in polygons:
+        ax.add_patch(poly)
+    
     plt.show()
 
 def cover_area(plot_wid, plot_len, front_spacing, left_spacing, right_spacing, back_spacing): #Calculate cover area details from givrn land length, width and spacings
-    len_cover_area = plot_len - (front_spacing + back_spacing)
-    wid_cover_area = plot_wid - (left_spacing + right_spacing)
+    len_cover_area = plot_len - back_spacing
+    wid_cover_area = plot_wid - left_spacing
     cover_area = len_cover_area * wid_cover_area
     start_cordinate = (left_spacing, front_spacing)
     return {
@@ -37,15 +33,17 @@ def cover_area(plot_wid, plot_len, front_spacing, left_spacing, right_spacing, b
     }
 
 def zone(x,y,cover_len,cover_wid): #Gives coord for 4 zones, inputs - cover start,length, width
+    wid_center = (x+cover_wid)/2
+    len_center = (y+cover_len)/2
     buttom_left = [x,y]
     top_right = [cover_wid,cover_len]
     top_left = [x,cover_len]
     buttom_right = [cover_wid,y]
-    AB_center = [cover_wid / 2,y]
-    DA_center = [cover_len / 2,x]
-    BC_center = [cover_wid,DA_center]
-    CD_center = [AB_center,cover_len]
-    center = [cover_wid/2,cover_len/2]
+    AB_center = [wid_center,y]
+    DA_center = [x,len_center]
+    BC_center = [cover_wid,len_center]
+    CD_center = [wid_center,cover_len]
+    center = [wid_center,len_center]
 
     zone_coord = []
     for i in range(4):
@@ -64,10 +62,6 @@ def zone(x,y,cover_len,cover_wid): #Gives coord for 4 zones, inputs - cover star
 
     return zone_coord
 
-
-
-
-
 #Inputs ---
 plot_length = 20
 plot_width = 10
@@ -79,7 +73,6 @@ back_spacing = 3
 
 cover_details = cover_area(plot_width, plot_length, front_spacing, left_side_spacing, right_side_spacing, back_spacing)
 
-
 building_details =[
         [
         cover_details['Start'][0],
@@ -89,10 +82,13 @@ building_details =[
         ]
     ]
 
-
 zone_cod = zone(building_details[0][0],building_details[0][1],building_details[0][2],building_details[0][3])
 
+all_polys = []
 
-    
-a = draw(zone_cod[0])
-show_plot(a,plot_width,plot_length)
+for i in range(len(zone_cod)):
+    poly = draw(zone_cod[i])
+    all_polys.append(poly)
+
+show_plot(all_polys, plot_width,plot_length)
+
