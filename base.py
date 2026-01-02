@@ -21,8 +21,8 @@ def show_plot(polygons,plot_width,plot_length): #Show/display the polygons
     plt.show()
 
 def cover_area(plot_wid, plot_len, front_spacing, left_spacing, right_spacing, back_spacing): #Calculate cover area details from givrn land length, width and spacings
-    len_cover_area = plot_len - back_spacing
-    wid_cover_area = plot_wid - left_spacing
+    len_cover_area = plot_len - (back_spacing+front_Spacing)
+    wid_cover_area = plot_wid - (left_spacing+right_soacing)
     cover_area = len_cover_area * wid_cover_area
     start_cordinate = (left_spacing, front_spacing)
     return {
@@ -90,8 +90,8 @@ building_details =[
         [
         cover_details['Start'][0],
         cover_details['Start'][1],
-        cover_details['Cover area length'],
-        cover_details['Cover area width']
+        cover_details['Cover area length']+front_spacing,
+        cover_details['Cover area width']+left_side_spacing
         ]
     ]
 
